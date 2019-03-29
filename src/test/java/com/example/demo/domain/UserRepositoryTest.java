@@ -6,10 +6,12 @@ import org.junit.After;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.awt.print.Pageable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -49,16 +51,29 @@ public class UserRepositoryTest {
         System.out.println(wx03);
     }
 
-    //@Test
+    @Test
     public void testQuery(){
+        //排序查询
         Sort sort = new Sort(Sort.Direction.DESC, "userName");
         List<User> userList = userRepository.findAll(sort);
         for (User user : userList) {
             System.out.println(user);
         }
+        //分页查询
+        Pageable page = new PageRequest(0, 2);
+        Page<User> userPage = userRepository.findAll(page);
+        int totalPages = userPage.getTotalPages();
+        long totalElements = userPage.getTotalElements();
+        int number = userPage.getNumber();
+        int size = userPage.getSize();
+        System.out.println("totalPages : "+totalPages+"\ntotalElements : "+totalElements+"\nnumber : "+number+"\nsize : "+size);
+        List<User> userList2 = userPage.getContent();
+        for (User user : userList2) {
+            System.out.println(user);
+        }
     }
 
-    //@Test
+    @Test
     public void testExtendQuery(){
         User user1 = userRepository.findByUserName("wx01");
         User user2 = userRepository.findByUserNameAndPassword("wx02", "123456");
@@ -73,5 +88,24 @@ public class UserRepositoryTest {
                 userList) {
             System.out.println(user);
         }
+    }
+
+    @Test
+    public void testPageQuery(){
+        Pageable page = new PageRequest(0, 2);
+        Page<User> userPage = userRepository.findAllSQLPage(page);
+        System.out.println(userPage.getTotalPages());
+        System.out.println(userPage.getTotalElements());
+        for (User user :
+                userPage.getContent()) {
+            System.out.println(user);
+        }
+    }
+
+    @Test
+    public void testUpdate(){
+        userRepository.modifyPasswordByUserName("wx03", "654321");
+        User user = userRepository.findByUserName("wx03");
+        System.out.println(user);
     }
 }
