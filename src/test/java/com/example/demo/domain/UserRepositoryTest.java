@@ -1,7 +1,7 @@
-package com.example.demo.domain; 
+package com.example.demo.domain;
 
 import org.junit.Test;
-import org.junit.Before; 
+import org.junit.Before;
 import org.junit.After;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,29 +17,29 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-/** 
-* UserRepository Tester. 
-* 
-* @author <Authors name> 
-* @since <pre>03/28/2019</pre> 
-* @version 1.0 
-*/
+/**
+ * UserRepository Tester.
+ *
+ * @author <Authors name>
+ * @version 1.0
+ * @since <pre>03/28/2019</pre>
+ */
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class UserRepositoryTest {
     @Autowired
     private UserRepository userRepository;
-    
+
     @Before
-    public void before() throws Exception { 
-    } 
-    
+    public void before() throws Exception {
+    }
+
     @After
-    public void after() throws Exception { 
-    } 
+    public void after() throws Exception {
+    }
 
     @Test
-    public void testInsert(){
+    public void testInsert() {
         Date date = new Date();
         DateFormat dateFormat = SimpleDateFormat.getDateTimeInstance();
         String dateStr = dateFormat.format(date);
@@ -52,7 +52,7 @@ public class UserRepositoryTest {
     }
 
     @Test
-    public void testQuery(){
+    public void testQuery() {
         //排序查询
         Sort sort = new Sort(Sort.Direction.DESC, "userName");
         List<User> userList = userRepository.findAll(sort);
@@ -66,7 +66,7 @@ public class UserRepositoryTest {
         long totalElements = userPage.getTotalElements();
         int number = userPage.getNumber();
         int size = userPage.getSize();
-        System.out.println("totalPages : "+totalPages+"\ntotalElements : "+totalElements+"\nnumber : "+number+"\nsize : "+size);
+        System.out.println("totalPages : " + totalPages + "\ntotalElements : " + totalElements + "\nnumber : " + number + "\nsize : " + size);
         List<User> userList2 = userPage.getContent();
         for (User user : userList2) {
             System.out.println(user);
@@ -74,7 +74,7 @@ public class UserRepositoryTest {
     }
 
     @Test
-    public void testExtendQuery(){
+    public void testExtendQuery() {
         User user1 = userRepository.findByUserName("wx01");
         User user2 = userRepository.findByUserNameAndPassword("wx02", "123456");
         System.out.println(user1);
@@ -82,7 +82,7 @@ public class UserRepositoryTest {
     }
 
     @Test
-    public void testDefineQuery(){
+    public void testDefineQuery() {
         List<User> userList = userRepository.findTwoUserByUserName("wx01", "wx03");
         for (User user :
                 userList) {
@@ -91,7 +91,7 @@ public class UserRepositoryTest {
     }
 
     @Test
-    public void testPageQuery(){
+    public void testPageQuery() {
         Pageable page = new PageRequest(0, 2);
         Page<User> userPage = userRepository.findAllSQLPage(page);
         System.out.println(userPage.getTotalPages());
@@ -103,7 +103,7 @@ public class UserRepositoryTest {
     }
 
     @Test
-    public void testUpdate(){
+    public void testUpdate() {
         userRepository.modifyPasswordByUserName("wx03", "654321");
         User user = userRepository.findByUserName("wx03");
         System.out.println(user);

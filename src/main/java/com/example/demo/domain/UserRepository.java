@@ -15,6 +15,7 @@ import java.util.List;
 public interface UserRepository extends JpaRepository<User, Long> {
     //扩展查询
     User findByUserName(String userName);
+
     User findByUserNameAndPassword(String userName, String password);
 
     //自定义查询
@@ -23,13 +24,16 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Transactional
     @Modifying
-    @Query("update User set password = ?2 where userName = ?1")//hql
+    @Query("update User set password = ?2 where userName = ?1")
+//hql
     int modifyPasswordByUserName(String userName, String password);
 
     //测试分页
-    @Query(nativeQuery = true, value = "select * from `user`")//理论上不可以，但是居然能用（诡异）
+    @Query(nativeQuery = true, value = "select * from `user`")
+//理论上不可以，但是居然能用（诡异）
     Page<User> findAllSQLPage(Pageable pageable);
 
-    @Query("select u from User u")//使用select查询实体对象，必须采用别名(坑)
+    @Query("select u from User u")
+//使用select查询实体对象，必须采用别名(坑)
     Page<User> findAllHQLPage(Pageable pageable);
 }

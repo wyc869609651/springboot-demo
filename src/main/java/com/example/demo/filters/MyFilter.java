@@ -9,7 +9,7 @@ public class MyFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         String requestURI = request.getRequestURI();
-        System.out.println("This uri is:"+requestURI);
+        System.out.println("This uri is:" + requestURI);
         filterChain.doFilter(servletRequest, servletResponse);
     }
 

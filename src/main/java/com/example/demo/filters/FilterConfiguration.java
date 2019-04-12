@@ -8,12 +8,12 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class FilterConfiguration {
     @Bean
-    public RemoteIpFilter remoteIpFilter(){
+    public RemoteIpFilter remoteIpFilter() {
         return new RemoteIpFilter();
     }
 
     @Bean
-    public FilterRegistrationBean MyFilterRegistration(){
+    public FilterRegistrationBean MyFilterRegistration() {
         FilterRegistrationBean registration = new FilterRegistrationBean();
         registration.setFilter(new MyFilter());
         registration.addUrlPatterns("/*");

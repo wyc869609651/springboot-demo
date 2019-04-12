@@ -10,7 +10,7 @@ public class HelloWorldController {
     private String hello; //省略getter setter方法
 
     @RequestMapping("/hello")
-    public String index(){
+    public String index() {
         return hello;
     }
 

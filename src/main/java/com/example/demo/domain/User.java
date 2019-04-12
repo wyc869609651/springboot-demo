@@ -19,7 +19,8 @@ public class User {
     @Column(name = "reg_time", columnDefinition = "varchar(20) not null comment '注册时间'")
     private String regTime;
 
-    public User() {}
+    public User() {
+    }
 
     public User(String userName, String password, String email, String nickName, String regTime) {
         this.userName = userName;
