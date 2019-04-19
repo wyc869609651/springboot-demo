@@ -6,6 +6,8 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
@@ -15,12 +17,15 @@ import java.util.Date;
 @SpringBootTest
 public class RedisTest {
     @Autowired
-    private RedisTemplate redisTemplate;
+    private RedisTemplate<String, Object> redisTemplate;
+
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
 
     @Test
     public void testSet() {
-        redisTemplate.opsForValue().set("learn", "Springboot");
-        System.out.println(redisTemplate.opsForValue().get("learn").toString());
+        stringRedisTemplate.opsForValue().set("learn", "Springboot");
+        System.out.println(stringRedisTemplate.opsForValue().get("learn"));
         User user = new User("wx01", "123456", "wx01@qq.com", "呀哈哈", "2019-04-12");
         redisTemplate.opsForValue().set("wx01", user);
     }

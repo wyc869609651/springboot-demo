@@ -42,19 +42,21 @@
         </dependency>
 
         <!--引入redis-->
+        <!--2.x版本需要引入的-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-redis</artifactId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
+        <!--1.x版本需要引入的-->
+        <!--<dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-redis</artifactId>
+        </dependency>-->
         <!--spring2.0集成redis所需common-pool2-->
         <!--<dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-pool2</artifactId>
             <version>2.4.2</version>
-        </dependency>-->
-        <!--<dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>-->
 
         <!--引入数据库连接-->
@@ -62,6 +64,12 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.13</version>
+        </dependency>
+
+        <!--spring session依赖-->
+        <dependency>
+            <groupId>org.springframework.session</groupId>
+            <artifactId>spring-session-data-redis</artifactId>
         </dependency>
     </dependencies>
 
@@ -72,7 +80,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
-        <resources>
+        <!--<resources>
             <resource>
                 <directory>src/main/java</directory>
                 <includes>
@@ -91,7 +99,7 @@
                 </includes>
                 <filtering>false</filtering>
             </resource>
-        </resources>
+        </resources>-->
     </build>
 
 </project>
